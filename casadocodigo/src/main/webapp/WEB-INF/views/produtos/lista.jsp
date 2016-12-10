@@ -7,6 +7,10 @@
 <title>Produto Ok</title>
 </head>
 <body>
+	<h1>Lita de Produtos</h1>
+
+	<div>${sucesso }</div>
+	
 	<table>
 		<thead>
 			<tr>
