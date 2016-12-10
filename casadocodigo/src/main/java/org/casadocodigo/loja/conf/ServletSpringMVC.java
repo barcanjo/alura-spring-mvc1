@@ -1,5 +1,8 @@
 package org.casadocodigo.loja.conf;
 
+import javax.servlet.Filter;
+
+import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 
@@ -25,5 +28,15 @@ public class ServletSpringMVC extends AbstractAnnotationConfigDispatcherServletI
 	protected String[] getServletMappings() {
 		return new String[]{"/"};
 	}
-
+	
+	/**
+	 * Retorna filtros do Servlet com a configuração do enconding em UTF-8
+	 */
+	@Override
+	protected Filter[] getServletFilters() {
+		CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
+		characterEncodingFilter.setEncoding("UTF-8");
+		
+		return new Filter[]{characterEncodingFilter};
+	}
 }
