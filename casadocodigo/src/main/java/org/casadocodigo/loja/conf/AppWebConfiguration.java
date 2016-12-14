@@ -6,6 +6,10 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.format.datetime.DateFormatter;
+import org.springframework.format.datetime.DateFormatterRegistrar;
+import org.springframework.format.support.DefaultFormattingConversionService;
+import org.springframework.format.support.FormattingConversionService;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
@@ -39,5 +43,22 @@ public class AppWebConfiguration {
 		messageSource.setCacheSeconds(1);
 		
 		return messageSource;
+	}
+	
+	/**
+	 * Cria um bean para registrar um DateTimeFormatter padrão para o projeto, fazendo com que
+	 * não haja a necessidade usar TAGs ou recursos para formatar datas nas páginas
+	 * @return Um objeto FormattingConversionService com o formato a ser utilizado nas conversões
+	 */
+	@Bean
+	public FormattingConversionService mvcConversionServic() {
+		DefaultFormattingConversionService conversionService = new DefaultFormattingConversionService();
+		
+		DateFormatterRegistrar registrar = new DateFormatterRegistrar();
+		registrar.setFormatter(new DateFormatter("dd/MM/yyyy"));
+		registrar.registerFormatters(conversionService);
+		
+		return conversionService;
+		
 	}
 }
