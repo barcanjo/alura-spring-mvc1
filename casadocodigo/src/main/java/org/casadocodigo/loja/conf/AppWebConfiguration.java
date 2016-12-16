@@ -10,11 +10,15 @@ import org.springframework.format.datetime.DateFormatter;
 import org.springframework.format.datetime.DateFormatterRegistrar;
 import org.springframework.format.support.DefaultFormattingConversionService;
 import org.springframework.format.support.FormattingConversionService;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
+import br.com.casadocodigo.loja.infra.FileSaver;
+
 @EnableWebMvc // Habilita o recurso de Web MVC do SpringMVC
-@ComponentScan(basePackageClasses = {HomeController.class, ProdutoDAO.class}) // configurar o caminho (pacote) onde o SpringMVC irá encontrar os nossos controllers
+@ComponentScan(basePackageClasses = {HomeController.class, ProdutoDAO.class, FileSaver.class}) // configurar o caminho (pacote) onde o SpringMVC irá encontrar os nossos controllers
 public class AppWebConfiguration {
 	
 	/**
@@ -51,7 +55,7 @@ public class AppWebConfiguration {
 	 * @return Um objeto FormattingConversionService com o formato a ser utilizado nas conversões
 	 */
 	@Bean
-	public FormattingConversionService mvcConversionServic() {
+	public FormattingConversionService mvcConversionService() {
 		DefaultFormattingConversionService conversionService = new DefaultFormattingConversionService();
 		
 		DateFormatterRegistrar registrar = new DateFormatterRegistrar();
@@ -59,6 +63,16 @@ public class AppWebConfiguration {
 		registrar.registerFormatters(conversionService);
 		
 		return conversionService;
-		
+	}
+	
+	/**
+	 * Cria um bean do Spring MultipartResolver, que é responsável
+	 * por manipular os arquivos enviados ao servidor, e permitir que um upload seja feito por exemplo.
+	 * Para isso utilizamos a clase StandardServletMultipartResolver.
+	 * @return Uma instância da classe StandardServletMultipartResolver
+	 */
+	@Bean
+	public MultipartResolver multipartResolver() {
+		return new StandardServletMultipartResolver();
 	}
 }
