@@ -1,0 +1,11 @@
+D:\dev\git\alura\spring-mvc1\casadocodigo\src\main\java\org\casadocodigo\loja\conf\AppWebConfiguration.java
+D:\dev\git\alura\spring-mvc1\casadocodigo\src\main\java\org\casadocodigo\loja\validation\ProdutoValidation.java
+D:\dev\git\alura\spring-mvc1\casadocodigo\src\main\java\org\casadocodigo\loja\controllers\HomeController.java
+D:\dev\git\alura\spring-mvc1\casadocodigo\src\main\java\br\com\casadocodigo\loja\infra\FileSaver.java
+D:\dev\git\alura\spring-mvc1\casadocodigo\src\main\java\org\casadocodigo\loja\conf\JPAConfiguration.java
+D:\dev\git\alura\spring-mvc1\casadocodigo\src\main\java\org\casadocodigo\loja\controllers\ProdutosController.java
+D:\dev\git\alura\spring-mvc1\casadocodigo\src\main\java\org\casadocodigo\loja\models\Produto.java
+D:\dev\git\alura\spring-mvc1\casadocodigo\src\main\java\org\casadocodigo\loja\daos\ProdutoDAO.java
+D:\dev\git\alura\spring-mvc1\casadocodigo\src\main\java\org\casadocodigo\loja\models\Preco.java
+D:\dev\git\alura\spring-mvc1\casadocodigo\src\main\java\org\casadocodigo\loja\conf\ServletSpringMVC.java
+D:\dev\git\alura\spring-mvc1\casadocodigo\src\main\java\org\casadocodigo\loja\models\TipoPreco.java

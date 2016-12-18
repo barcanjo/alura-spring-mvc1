@@ -2,6 +2,7 @@ package org.casadocodigo.loja.conf;
 
 import org.casadocodigo.loja.controllers.HomeController;
 import org.casadocodigo.loja.daos.ProdutoDAO;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -12,14 +13,17 @@ import org.springframework.format.support.DefaultFormattingConversionService;
 import org.springframework.format.support.FormattingConversionService;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
+import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import br.com.casadocodigo.loja.infra.FileSaver;
 
 @EnableWebMvc // Habilita o recurso de Web MVC do SpringMVC
+@EnableCaching
 @ComponentScan(basePackageClasses = {HomeController.class, ProdutoDAO.class, FileSaver.class}) // configurar o caminho (pacote) onde o SpringMVC irá encontrar os nossos controllers
-public class AppWebConfiguration {
+public class AppWebConfiguration extends WebMvcConfigurerAdapter {
 	
 	/**
 	 * Configura o projeto para que o SpringMVC consiga encontrar as views
@@ -74,5 +78,10 @@ public class AppWebConfiguration {
 	@Bean
 	public MultipartResolver multipartResolver() {
 		return new StandardServletMultipartResolver();
+	}
+	
+	@Override
+	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
+		configurer.enable();
 	}
 }
