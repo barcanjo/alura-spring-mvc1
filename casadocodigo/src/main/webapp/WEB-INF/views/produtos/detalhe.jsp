@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="s" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,8 +15,7 @@
             type="image/ico" />
         <link href="https://plus.googlecom/108540024862647200608"
             rel="publisher"/>
-        <title>Livros de Java, SOA, Android, iPhone, Ruby on Rails e
-            muito mais - Casa do Código</title>
+        <title>${produto.titulo} - Casa do Código</title>
         <link href="${contextPath}resources/css/cssbase-min.css"
             rel="stylesheet" type="text/css" media="all" />
         <link href='http://fonts.googleapis.com/css?family=Droid+Sans:400,700'
@@ -39,7 +40,7 @@
             rel="stylesheet" type="text/css"  media="all"  />
         <link rel="canonical" href="http://www.casadocodigo.com.br/" />    
 </head>
-<body>
+<body class="produto">
 
   <header id="layout-header">
         <div class="clearfix container">
@@ -49,7 +50,7 @@
                 <nav id="main-nav">
 
                     <ul class="clearfix">
-                        <li><a href="/carrinho" rel="nofollow">Carrinho</a></li>
+                        <li><a href="/carrinho" rel="nofollow">Carrinho(${carrinhoCompras.quantidade})</a></li>
 
                         <li><a href="/pages/sobre-a-casa-do-codigo" rel="nofollow">Sobre Nós</a></li>
 
@@ -78,11 +79,11 @@
         </ul>
     </nav>
 
-    <article id="${produto.id }">
+    <article id="${produto.id}">
           <header id="product-highlight" class="clearfix">
             <div id="product-overview" class="container">
               <img width="280px" height="395px" src="http://cdn.shopify.com/s/files/1/0155/7645/products/css-eficiente-featured_large.png?v=1435245145" class="product-featured-image" />
-              <h1 class="product-title">${produto.titulo }</h1>
+              <h1 class="product-title">${produto.titulo}</h1>
               <p class="product-author">
                 <span class="product-author-link">
 
@@ -90,28 +91,27 @@
               </p>    
 
             <p class="book-description">
-                ${prouto.descricao }
+                ${produto.descricao}
             </p>
             </div>
           </header>
 
-
       <section class="buy-options clearfix">  
-      <form action="/carrinho/add" method="post" class="container">
+      <form action='<c:url value="/carrinho/add" />' method="post" class="container">
+        <input type="hidden" value="${produto.id}" value="produtoId" />
         <ul id="variants" class="clearfix">
-        	<c:forEach items="${produto.precos }" var="preco">
-        	  <input type="hidden" value="${produto.id}" value="produtoId" />
+        <c:forEach items="${produto.precos}" var="preco">
               <li class="buy-option">
-                <input type="radio" name="id" class="variant-radio" id="product-variant-9720393823" value="9720393823"  checked="checked"  />
-                <label  class="variant-label" for="product-variant-9720393823">
-                  ${preco.tipo } 
+                  <input type="radio" name="tipo" class="variant-radio" id="tipo" value="${preco.tipo}"  checked="checked"  />
+                <label  class="variant-label">
+                  ${preco.tipo} 
                 </label>
-                 <small class="compare-at-price">R$ 39,90</small>
-                <p class="variant-price">${preco.valor }</p>
+                <small class="compare-at-price">R$ 39,90</small>
+                <p class="variant-price">${preco.valor}</p>
               </li>
-             </c:forEach>
+        </c:forEach>         
         </ul>
-        <button type="submit" class="submit-image icon-basket-alt" alt="Compre Agora" title="Compre Agora ${produto.titulo }"></button>
+        <button type="submit" class="submit-image icon-basket-alt" alt="Compre Agora" title="Compre Agora ${produto.titulo}!">Comprar</button>
 
       </form>
 
@@ -126,9 +126,9 @@
 
       <section class="data product-detail">
         <h2 class="section-title">Dados do livro:</h2>
-        <p>Número de páginas: <span>${produto.paginas }</span></p>
+        <p>Número de páginas: <span>${produto.paginas}</span></p>
         <p></p>
-        <p>Data de publicação: ${produto.dataLancamento } </p>
+        <p>Data de publicação: <fmt:formatDate pattern="dd/mm/yyyy" value="${produto.dataLancamento.time}" /> </p>
         <p>Encontrou um erro? <a href='/submissao-errata' target='_blank'>Submeta uma errata</a></p>
       </section>
     </div>
@@ -137,9 +137,6 @@
 
     <footer id="layout-footer">
         <div class="clearfix container">
-
-
-
 
             <div id="collections-footer">
                 <!-- cdc-footer -->

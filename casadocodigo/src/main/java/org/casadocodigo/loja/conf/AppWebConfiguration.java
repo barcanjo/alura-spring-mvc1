@@ -2,7 +2,7 @@ package org.casadocodigo.loja.conf;
 
 import org.casadocodigo.loja.controllers.HomeController;
 import org.casadocodigo.loja.daos.ProdutoDAO;
-import org.springframework.cache.annotation.EnableCaching;
+import org.casadocodigo.loja.models.CarrinhoCompras;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -21,8 +21,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import br.com.casadocodigo.loja.infra.FileSaver;
 
 @EnableWebMvc // Habilita o recurso de Web MVC do SpringMVC
-@EnableCaching
-@ComponentScan(basePackageClasses = {HomeController.class, ProdutoDAO.class, FileSaver.class}) // configurar o caminho (pacote) onde o SpringMVC irá encontrar os nossos controllers
+@ComponentScan(basePackageClasses = {HomeController.class, ProdutoDAO.class, FileSaver.class, CarrinhoCompras.class}) // configurar o caminho (pacote) onde o SpringMVC irá encontrar os nossos controllers
 public class AppWebConfiguration extends WebMvcConfigurerAdapter {
 	
 	/**
@@ -35,6 +34,13 @@ public class AppWebConfiguration extends WebMvcConfigurerAdapter {
 		InternalResourceViewResolver resolver = new InternalResourceViewResolver();
 		resolver.setPrefix("/WEB-INF/views/");
 		resolver.setSuffix(".jsp");
+		
+		/**
+		 * Expõe os beans nas páginas, deixando-os visíveis e utilizáveis.
+		 */
+//		resolver.setExposeContextBeansAsAttributes(true);
+		resolver.setExposedContextBeanNames("carrinhoCompras");
+		
 		return resolver;
 	}
 	
@@ -80,6 +86,10 @@ public class AppWebConfiguration extends WebMvcConfigurerAdapter {
 		return new StandardServletMultipartResolver();
 	}
 	
+	/**
+	 * Método necessário para informar ao Spring para buscar recursos no Container caso não encontre algum.
+	 * Por exemplo, se o Spring não achar arquivos .css ou .js ele vai solicitar ao Container para encontrá-los
+	 */
 	@Override
 	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
 		configurer.enable();
