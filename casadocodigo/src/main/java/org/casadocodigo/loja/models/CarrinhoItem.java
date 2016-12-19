@@ -60,5 +60,4 @@ public class CarrinhoItem {
 			return false;
 		return true;
 	}
-
 }
