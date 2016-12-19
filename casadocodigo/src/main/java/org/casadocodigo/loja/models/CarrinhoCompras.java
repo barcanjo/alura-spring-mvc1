@@ -3,14 +3,20 @@ package org.casadocodigo.loja.models;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.WebApplicationContext;
 
 /**
  * Classe que representa o carrinho de compras da loja
+ * Define também o escopo de Sessão para esse bean (por padrão Singleton) para que não seja compartilhado
+ * entre múltiplos usuários, fazendo com que seus itens sejam os mesmos.
+ * A cada sessão um novo CarrinhoCompras é criado para o usuário.
  * @author Bruno Arcanjo
  *
  */
 @Component
+@Scope(value = WebApplicationContext.SCOPE_SESSION)
 public class CarrinhoCompras {
 
     private Map<CarrinhoItem, Integer> itens = new LinkedHashMap<CarrinhoItem, Integer>();

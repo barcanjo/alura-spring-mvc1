@@ -6,12 +6,24 @@ import org.casadocodigo.loja.models.CarrinhoItem;
 import org.casadocodigo.loja.models.Produto;
 import org.casadocodigo.loja.models.TipoPreco;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.ModelAndView;
 
+/**
+ * Controller responsável por receber as requisições com /carrinho.
+ * Define também o escopo de Request para esse bean (por padrão Singleton) para que cada solicitação
+ * do usuário seja tratada em uma requisição diferente.
+ * Devido ao CarrinhoComprasController injetar o SessionBean CarrinhoCompras há a necessidade de defini-lo
+ * com escopo de requisição.
+ * @author Bruno Arcanjo
+ *
+ */
 @Controller
 @RequestMapping("/carrinho")
+@Scope(value = WebApplicationContext.SCOPE_REQUEST)
 public class CarrinhoComprasController {
 
     @Autowired
