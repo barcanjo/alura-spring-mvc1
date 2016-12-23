@@ -1,5 +1,7 @@
 package org.casadocodigo.loja.models;
 
+import java.math.BigDecimal;
+
 /**
  * Classe que representa um item no carrinho de compras. Deverá haver um produto
  * e o seu tipo de preço.
@@ -31,6 +33,14 @@ public class CarrinhoItem {
 
 	public void setTipoPreco(TipoPreco tipoPreco) {
 		this.tipoPreco = tipoPreco;
+	}
+	
+	public BigDecimal getPreco() {
+		return produto.precoPara(tipoPreco);
+	}
+	
+	public BigDecimal getTotal(int quantidade) {
+		return this.getPreco().multiply(new BigDecimal(quantidade));
 	}
 
 	@Override

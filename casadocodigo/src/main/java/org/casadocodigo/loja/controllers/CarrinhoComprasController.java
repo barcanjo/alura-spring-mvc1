@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -34,10 +35,16 @@ public class CarrinhoComprasController {
 
     @RequestMapping("/adicionar")
     public ModelAndView adicionar(Integer produtoId, TipoPreco tipoPreco) {
-        ModelAndView modelAndView = new ModelAndView("redirect:/produtos");
+        ModelAndView modelAndView = new ModelAndView("redirect:/carrinho");
         CarrinhoItem carrinhoItem = criaItem(produtoId, tipoPreco);
         carrinho.add(carrinhoItem);
         return modelAndView;
+    }
+    
+    @RequestMapping(method = RequestMethod.GET)
+    public ModelAndView itens() {
+    	ModelAndView modelAndView = new ModelAndView("/carrinho/itens");
+    	return modelAndView;
     }
 
     private CarrinhoItem criaItem(Integer produtoId, TipoPreco tipoPreco) {

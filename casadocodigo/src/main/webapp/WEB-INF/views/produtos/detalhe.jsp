@@ -50,7 +50,7 @@
                 <nav id="main-nav">
 
                     <ul class="clearfix">
-                        <li><a href="/carrinho" rel="nofollow">Carrinho(${carrinhoCompras.quantidade})</a></li>
+                        <li><a href='<c:url value="/carrinho" />' rel="nofollow">Carrinho(${carrinhoCompras.quantidade})</a></li>
 
                         <li><a href="/pages/sobre-a-casa-do-codigo" rel="nofollow">Sobre Nós</a></li>
                     </ul>
@@ -100,7 +100,7 @@
         <ul id="variants" class="clearfix">
         <c:forEach items="${produto.precos}" var="preco">
               <li class="buy-option">
-                  <input type="radio" name="tipo" class="variant-radio" id="tipo" value="${preco.tipo}"  checked="checked"  />
+                  <input type="radio" name="tipoPreco" class="variant-radio" id="tipoPreco" value="${preco.tipo}"  checked="checked"  />
                 <label itemprop="category" itemscope class="variant-label">${preco.tipo}</label>
                 <small class="compare-at-price">R$ 39,90</small>
                 <p class="variant-price" itemprop="price">${preco.valor}</p>
