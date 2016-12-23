@@ -11,6 +11,7 @@
 	<h1>Lita de Produtos</h1>
 
 	<div>${sucesso }</div>
+	<div>${falha }</div>
 	
 	<table>
 		<thead>

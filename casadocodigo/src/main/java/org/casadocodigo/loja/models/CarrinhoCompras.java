@@ -7,6 +7,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -14,12 +15,14 @@ import org.springframework.web.context.WebApplicationContext;
  * Classe que representa o carrinho de compras da loja
  * Define também o escopo de Sessão para esse bean (por padrão Singleton) para que não seja compartilhado
  * entre múltiplos usuários, fazendo com que seus itens sejam os mesmos.
+ * Cria um proxy para resolver a dependência entre os escopos dos beans que utilizam esse Bean, fazendo com
+ * que sejam do tipo Request
  * A cada sessão um novo CarrinhoCompras é criado para o usuário.
  * @author Bruno Arcanjo
  *
  */
 @Component
-@Scope(value = WebApplicationContext.SCOPE_SESSION)
+@Scope(value = WebApplicationContext.SCOPE_SESSION, proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class CarrinhoCompras implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -69,4 +72,11 @@ public class CarrinhoCompras implements Serializable {
     	}
     	return total;
     }
+
+	public void remover(Integer produtoId, TipoPreco tipoPreco) {
+		Produto produto = new Produto();
+		produto.setId(produtoId);
+		
+		itens.remove(new CarrinhoItem(produto, tipoPreco));
+	}
 }
